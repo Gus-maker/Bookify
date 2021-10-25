@@ -1,45 +1,43 @@
-# Template para desenvolvimento e entrega de NAC
-
-Esse é um guia simples, o grupo pode e deve modificar o template conforme necessidade. 
-
-# Nome do projeto
+# Nome do projeto 
+Bookify
 
 **nome dos alunos:** 
 
-**Turma:**
+Gustavo Gonçalves de Araujo - RM85569 
 
-**Ano:**
+Henrique Sartal Santos - RM82172 
+
+Iago Manholetti Alexandrino - RM84314 
+
+João Carlos Melo Azevedo - RM85744 
+
+José Dijalbas Francisco dos Santos Bezerra - RM84254 
+
+Leonardo Andrade Antunes de Bem - RM86062 
+
+Martin David Valdes Olcese - RM85521
+
+**Turma:** 
+
+2TDSJ
+
+**Ano:** 
+
+2021
 
 ## Objetivo / descrição do Projeto
 
-Explique de forma clara qual o objeto deste projeto, para que serve e comente as principais tecnologias utilizadas. 
+Democratização da leitura, tornar o hábito da leitura mais presente na sociedade brasileira.
+
+Um projeto de rede social focada na leitura, disponível em mobile e web, utilizando pontos de coleta de livro com arduino e node-red.
 
 ## Diagrama do projeto
 
-Adicione uma ou mais fotos do projeto, pode ser uma imagem da arquitetura, do circuito eletrônico do Flow desenvolvido. 
+Arquitetura da Solução
 
 <img src="/imagem.jpg" width="550">
 
 
-## Como usar 
-
-Explique como rodar o seu projeto. Quais programas instalar, como configurar... 
-
-* Pode ser utilizado marcadores
-* Para ajudar na formatação
-
-Ou qualquer outra tabulação:
-
-- [x] Youtube
-- [ ] Facebook 
-- [x] Instagram
-
-Pode adicionar algum trecho de código, por exemplo para clonar esse repositório:
-
-    cd /home/iot
-    git clone https://github.com/arnaldojr/templatenac
-    cd templatenac
-    ls
 
 
 ## Link de vídeo demonstração
