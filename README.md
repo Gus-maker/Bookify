@@ -1,7 +1,8 @@
-# Nome do projeto 
-Bookify
+# Bookify
 
-**nome dos alunos:** 
+## CTT
+
+**Nome dos alunos:** 
 
 Gustavo Gonçalves de Araujo - RM85569 
 
