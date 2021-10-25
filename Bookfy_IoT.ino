@@ -5,7 +5,7 @@
 Adafruit_SSD1306 display(128, 64);
 
 const int TAMANHO = 100; // tamamnho da mensagem do Json
-String ISBN = ""; // lista para capturar os códigos ISBN
+String ISBN =""; // lista para capturar os códigos ISBN
 int estoque = 0; //variavel que armazena o número de livros da box
 int repeat_message = 0; //variavel para controlar o loop de mensagem do pré cadastro do usuário com o usuário
 int repeat_message1 = 0; //variavel para controlar o loop da mensagem inicial do programa com o usuário
@@ -30,7 +30,7 @@ void setup() {
 
   //inicializa display
   display.begin(SSD1306_SWITCHCAPVCC, 0x3C); // Address 0x3C for 128x64
-  display.clearDisplay();
+
 
   //texto de boot
 display.clearDisplay();
@@ -41,7 +41,6 @@ display.println("Ola sou a box do Bookfy");
 display.display();
 delay(1000);
 display.clearDisplay();
-delay(2000);
 display.setTextSize(1);
 display.setTextColor(WHITE);
 display.setCursor(0, 10);
@@ -51,30 +50,8 @@ display.println("Insira o ISBN");
 display.setCursor(0, 45);
 display.println("Ele fica na traseira do seu livro");
 display.display();
-delay(2000);
-//display.clearDisplay();
-//display.setTextSize(1);
-//display.setTextColor(WHITE);
-//display.setCursor(0, 10);
-//display.println("Caso sim aperte ");
-//display.setCursor(0, 30);
-//display.println("Para limpar digite ");
-//display.display();
-//delay(2000);
-//display.setTextSize(1);
-//display.setTextColor(WHITE);
-//display.setCursor(0, 10);
-//display.println("Caso erre ao digitar, use o '#' para voltar ao erro ");
-//display.display();
-//display.clearDisplay();
-//  display.setTextSize(1);
-//  display.setTextColor(WHITE);
-//  display.setCursor(0, 10);
-//  display.println("Iniciando...");
-//  display.display();
-//  delay(2000);
-//  display.clearDisplay();
-//  display.display();
+delay(1000);
+
 
   pinMode(led_pin, OUTPUT);
 
@@ -86,24 +63,14 @@ void loop() {
   led_status = LOW; // desliga o led
 
 
-
-
-//  while ( i == 0 && repeat_message1 == 0) { // laço de repetição para printar mensagem inicial
-//    repeat_message1++;
-//    break;
-//  }
-//  if ( i > 0 && repeat_message1 == 1) { //Quando o índice for maior, zera o repeat message, para ser printado ao concluir a doação
-//    repeat_message1 = 0;
-//  }
-
   if (key != NO_KEY && i < 13 && key != '#' && key != '*') // se houver botão pressionado e o vetor tiver menos de 13 caracteres ele acesse esse if
   {
     //    Serial.println(key);//printa o número
-    word(key); // transforma a tecla pressionada em uma palavra
+    word(key);
     ISBN += key; // adiciona na string do Código ISBN
+    Serial.println(ISBN);
     StaticJsonDocument<TAMANHO> json; //cria o objeto Json
-
-    int sensorValue = key - 48; // Passa o valor do Keypad para o valor real da tecla pressionada, ao digitar a o valor seria "49", caso o usuário pressionasse "1".
+    int sensorValue = key - 48 ; //  - 48 Passa o valor do Keypad para o valor real da tecla pressionada, ao digitar a o valor seria "49", caso o usuário pressionasse "1".
     boolean sensorValue2 = led_status; // Passa o valor do  estado do led que informa se está ligado ou não
 
     ////formato de leitura no node-red
@@ -112,13 +79,6 @@ void loop() {
     serializeJson(json, Serial);
     Serial.println();
     analogWrite(led_pin, led_status);
-//    display.clearDisplay();
-//    display.setTextSize(1);
-//    display.setTextColor(WHITE);
-//    display.setCursor(0, 10);
-//    display.println(ISBN);//printa o código isbn
-//    display.display();
-//    delay(2000);
     i++;//assim que adicionado o número, aumenta um no indice da lista
   }
   if (key == '#' && i < 13) { // tecla volta
@@ -134,23 +94,23 @@ void loop() {
 
   if ( i == 13 && key == '*' ) { // If para cadastro
     StaticJsonDocument<TAMANHO> json; //cria o objeto Json
-
-    int sensorValue = key - 48; // Passa o valor do Keypad para o valor real da tecla pressionada, ao digitar a o valor seria "49", caso o usuário pressionasse "1".
+//    String sensorValue = ISBN; // Passa o valor do Keypad para o valor real da tecla pressionada, ao digitar a o valor seria "49", caso o usuário pressionasse "1".
     bool sensorValue2 = led_status; // Passa o valor do  estado do led que informa se está ligado ou não
 
     ////formato de leitura no node-red
-    json["Key"] = sensorValue; // Tecla e seu valor
+//    json["ISBN"] = ISBN; // código do livro
     json["Led"] = sensorValue2;// Tecla e seu valor
-
+    
     serializeJson(json, Serial);
     Serial.println();
     analogWrite(led_pin, led_status);
     estoque++; //Adiciona um livro ao estoque
     adicionar_ao_estoque(estoque); // Printa a mensagem, sinalizando que o livro foi adicionado
+    delay(1000);
     ISBN = ""; // Esvazia o ISBN
     i = 0; // zera o índice
     repeat_message = 0; // zera o repetidor para uma próxima mensagem de pré cadastro
-    serializeJson(json, Serial);
+//    serializeJson(json, Serial);
   }
 
     
@@ -168,6 +128,7 @@ void loop() {
 
 
   while (i == 13 && repeat_message == 0) { // Quando o ISBN está completo, printa a mensagem de pré cadastro para o usuário apagar o ISBN ou finalizar o cadastro
+    pre_cadastro(ISBN); // função de pré cadastro
     StaticJsonDocument<TAMANHO> json; //cria o objeto Json
 
     int sensorValue = key - 48; // Passa o valor do Keypad para o valor real da tecla pressionada, ao digitar a o valor seria "49", caso o usuário pressionasse "1".
@@ -180,8 +141,6 @@ void loop() {
     serializeJson(json, Serial);
     Serial.println();
     analogWrite(led_pin, led_status);
-    pre_cadastro(ISBN); // função de pré cadastro
-    delay(3000);
     repeat_message++; //adiciona um porque a imagem já foi repetida, assim sai do while acima
     break;
   }
@@ -189,22 +148,6 @@ void loop() {
 }
 
 String pre_cadastro(String ISBN) {
-//  display.clearDisplay();
-//  display.setTextSize(1);
-//  display.setTextColor(WHITE);
-//  display.setCursor(0, 10);
-//  display.println("Codigo ISBN");
-//  display.setCursor(0, 30);
-//  display.println(ISBN);//printa o código isbn
-//  display.setCursor(0, 50);
-//  display.println("Deseja cadastrar esse codigo?");
-//  display.display();
-//  display.clearDisplay();
-//  display.setCursor(0, 10);
-//  display.println("Caso sim aperte '*' ");
-//  display.setCursor(0, 30);
-//  display.println("Para limpar digite '#' ");
-//  display.display();
   led_status = HIGH;
   digitalWrite(led_pin, led_status); //liga led
   Serial.print(led_pin);
@@ -229,7 +172,6 @@ int adicionar_ao_estoque (int estoque) {
   Serial.println(led_pin);
   led_status = HIGH;
   digitalWrite(led_pin, led_status); //liga led
-  delay(5000);
   Serial.println(led_pin);
   return estoque;
 }
