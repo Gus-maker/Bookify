@@ -35,7 +35,7 @@ Um projeto de rede social focada na leitura, disponível em mobile e web, utiliz
 
 Arquitetura da Solução
 
-<img src="/https://github.com/Gus-maker/Bookfy/blob/main/image.JPG width="550">
+<img src="image.JPG" width="550">
 
 
 
