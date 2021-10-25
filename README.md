@@ -45,7 +45,7 @@ Arquitetura da Solução
 
 Adicione o link para assistir ao vídeo do projeto funcionando.
 
-[Link para o video youtube](https://www.youtube.com/watch?v=xva71wynxS0)
+[Link para o video youtube](https://youtu.be/D01dxsYgl2M)
 
 
 ### Referências 
